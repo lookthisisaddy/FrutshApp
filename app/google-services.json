@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "849919575516",
+    "firebase_url": "https://location-tracker-app-7aa2a-default-rtdb.firebaseio.com",
+    "project_id": "location-tracker-app-7aa2a",
+    "storage_bucket": "location-tracker-app-7aa2a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849919575516:android:71c7a84626d82ea930fb19",
+        "android_client_info": {
+          "package_name": "com.addyappdeveloper.storeuserlocationonrtdb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849919575516-83bh3m7q2hvs4kmdoh1n5ftmpkhg7phg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5GyuUiZ85yuUMFTUm6UiRObWZZdo9OeU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849919575516-83bh3m7q2hvs4kmdoh1n5ftmpkhg7phg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849919575516:android:4d728fe09f08013b30fb19",
+        "android_client_info": {
+          "package_name": "com.pythonanywhere.frutsh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849919575516-83bh3m7q2hvs4kmdoh1n5ftmpkhg7phg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5GyuUiZ85yuUMFTUm6UiRObWZZdo9OeU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849919575516-83bh3m7q2hvs4kmdoh1n5ftmpkhg7phg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
