@@ -12,8 +12,8 @@ App downloads the HTML content from a website using website's url. Then the app 
 Link : https://frutsh.pythonanywhere.com/
 
 ### Extra Features
-    Splash Screen
-    Login/Signup 
+   Splash Screen
+   Login/Signup 
 
 ### Fruit Condition Classifier 
 ***This app is a part of a Fruit Condition Classifier project. 
