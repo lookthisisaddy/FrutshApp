@@ -1,10 +1,6 @@
 package com.pythonanywhere.frutsh;
 
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.io.File;
-
 public class BananaFragment extends Fragment {
 
-    TextView fruitName,condition,time;
+    TextView fruitName, condition, time;
     ImageView imageView;
-    int number = 1;
 
     @Nullable
     @Override
@@ -39,15 +32,11 @@ public class BananaFragment extends Fragment {
 
         imageView = view.findViewById(R.id.imageView);
 
-        fruitName.setText(String.format("Fruit : %s", SplashActivity.fruitName.get(1)));
-        condition.setText(String.format("Condition : %s", SplashActivity.condition.get(1)));
-        time.setText(String.format("Last Uploaded : %s", SplashActivity.time.get(1)));
-
-        ContextWrapper contextWrapper = new ContextWrapper(getContext());
-        File directory = contextWrapper.getDir("imageDir", Context.MODE_PRIVATE);
-        File file = new File(directory, "image" + number + ".jpg");
-        if (file.exists()){
-            imageView.setImageDrawable(Drawable.createFromPath(file.toString()));
+        if (HomeActivity.hashMap != null) {
+            fruitName.setText(String.format("Fruit : %s", HomeActivity.hashMap.get("b_name")));
+            condition.setText(String.format("Condition : %s", HomeActivity.hashMap.get("b_condition")));
+            time.setText(String.format("Last Uploaded : %s", HomeActivity.hashMap.get("b_time")));
+            imageView.setImageBitmap(HomeActivity.bitmaps[1]);
         }
 
 

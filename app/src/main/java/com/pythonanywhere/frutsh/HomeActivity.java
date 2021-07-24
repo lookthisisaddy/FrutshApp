@@ -1,28 +1,21 @@
 package com.pythonanywhere.frutsh;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import Classes.DownloadWebContent;
 import Classes.ImageDownloader;
@@ -31,10 +24,12 @@ public class HomeActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-
     final Fragment fragment1 = new AppleFragment();
     final Fragment fragment2 = new BananaFragment();
     final Fragment fragment3 = new OrangeFragment();
+
+    public static HashMap<String, String> hashMap;
+    public static Bitmap[] bitmaps;
 
     private FirebaseAuth mAuth;
 
@@ -55,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
                     new AppleFragment()).commit();
         }
 
-        downloadImage();
+        downloadWebContent();
 
     }
 
@@ -80,50 +75,6 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             };
 
-
-    public void downloadImage(){
-
-        ImageDownloader task = new ImageDownloader();
-        try {
-            String url1 = "https://frutsh.pythonanywhere.com/" + SplashActivity.imageURLs.get(0);
-            String url2 = "https://frutsh.pythonanywhere.com/" + SplashActivity.imageURLs.get(1);
-            String url3 = "https://frutsh.pythonanywhere.com/" + SplashActivity.imageURLs.get(2);
-            String[] urls = {url1,url2,url3};
-
-            Bitmap[] bitmaps = task.execute(urls).get();
-
-            for (int i = 0; i < bitmaps.length; i++){
-                saveImages(bitmaps[i], i);
-            }
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void saveImages(Bitmap bitmap, int number){
-
-        ContextWrapper contextWrapper = new ContextWrapper(getBaseContext());
-        File directory = contextWrapper.getDir("imageDir", Context.MODE_PRIVATE);
-
-        File file = new File(directory, "image" + number + ".jpg");
-        FileOutputStream fileOutputStream;
-        try {
-            fileOutputStream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 25, fileOutputStream);
-            fileOutputStream.flush();
-            fileOutputStream.close();
-            Log.d("HomeActivity", "image" + number + " saved");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -133,21 +84,48 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.logout){
+        if (item.getItemId() == R.id.logout) {
             logout();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void logout(){
-        mAuth.signOut();
-        Intent intent = new Intent(HomeActivity.this , LoginActivity.class);
-        startActivity(intent);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finishAffinity();
+    }
+
+
+    public void logout() {
+        mAuth.signOut();
+        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void downloadWebContent() {
+        DownloadWebContent task = new DownloadWebContent();
+        try {
+            hashMap = task.execute("https://frutsh.pythonanywhere.com").get();
+            downloadImage(hashMap);
+
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void downloadImage(HashMap<String, String> hashMap) {
+
+        String url1 = "https://frutsh.pythonanywhere.com/" + hashMap.get("a_url");
+        String url2 = "https://frutsh.pythonanywhere.com/" + hashMap.get("b_url");
+        String url3 = "https://frutsh.pythonanywhere.com/" + hashMap.get("o_url");
+
+        ImageDownloader task = new ImageDownloader();
+        try {
+            bitmaps = task.execute(url1, url2, url3).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

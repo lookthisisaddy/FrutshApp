@@ -1,8 +1,5 @@
 package com.pythonanywhere.frutsh;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,49 +45,40 @@ public class SignUpActivity extends AppCompatActivity {
         usernameEditText = findViewById(R.id.editTextUsername);
     }
 
-    public void signUp(View view){
+    public void signUp(View view) {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        if (passwordEditText.length() > 6 && usernameEditText.length() > 0 && emailEditText.getText().toString().trim().matches(emailPattern)){
+        if (passwordEditText.length() > 6 && usernameEditText.length() > 0 && emailEditText.getText().toString().trim().matches(emailPattern)) {
             createUser();
-        }else if (passwordEditText.length() <= 6 && usernameEditText.length() > 0 && emailEditText.getText().toString().trim().matches(emailPattern) ){
+        } else if (passwordEditText.length() <= 6 && usernameEditText.length() > 0 && emailEditText.getText().toString().trim().matches(emailPattern)) {
             Toast.makeText(this, "Password must be more than 6 characters", Toast.LENGTH_SHORT).show();
-        }
-        else{
+        } else {
             Toast.makeText(this, "Enter valid username or email", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void createUser(){
+    public void createUser() {
         mAuth.createUserWithEmailAndPassword(emailEditText.getText().toString(), passwordEditText.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Toast.makeText(SignUpActivity.this, "Account Created", Toast.LENGTH_SHORT).show();
                     try {
                         mDatabase.child("Frutsh_User").child(task.getResult().getUser().getUid()).child("Email").setValue(emailEditText.getText().toString());
                         mDatabase.child("Frutsh_User").child(task.getResult().getUser().getUid()).child("Username").setValue(usernameEditText.getText().toString());
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     emailVerification();
                     verificationDialogBox();
 
-                }
-                else {
-                    try
-                    {
+                } else {
+                    try {
                         throw task.getException();
-                    }
-                    catch (FirebaseAuthInvalidCredentialsException incorrectPassword)
-                    {
+                    } catch (FirebaseAuthInvalidCredentialsException incorrectPassword) {
                         Toast.makeText(SignUpActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
-                    }
-                    catch (FirebaseAuthUserCollisionException existEmail)
-                    {
+                    } catch (FirebaseAuthUserCollisionException existEmail) {
                         Toast.makeText(SignUpActivity.this, "Email already exist", Toast.LENGTH_SHORT).show();
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -95,39 +86,39 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    public void emailVerification(){
+    public void emailVerification() {
         mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
-                    Log.i("Verification","Email sent");
-                }else {
-                    Log.i("Verification","Email not sent");
+                if (task.isSuccessful()) {
+                    Log.i("Verification", "Email sent");
+                } else {
+                    Log.i("Verification", "Email not sent");
                 }
             }
         });
     }
 
-    public void signIn(){
+    public void signIn() {
         Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
         startActivity(intent);
     }
 
-    public void signOut(){
+    public void signOut() {
         Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 
-    public void verificationDialogBox(){
+    public void verificationDialogBox() {
         new AlertDialog.Builder(SignUpActivity.this).setTitle("Verify Your Email").setMessage("A verification link has been sent to your email address. Do you want to verify?").setPositiveButton("Verify now", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 new AlertDialog.Builder(SignUpActivity.this).setTitle("Proceed to GMail").setMessage("Please click on the link sent to your email address and login again to complete the verification.").setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        try{
+                        try {
                             Intent intent = getPackageManager().getLaunchIntentForPackage("com.google.android.gm");
-                            if(intent != null){
+                            if (intent != null) {
                                 startActivity(intent);
                                 finishAffinity();
                             }
