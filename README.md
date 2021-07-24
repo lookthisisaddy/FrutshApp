@@ -8,5 +8,6 @@ An android app to check the status about the freshness of a fruit.
 App downloads the HTML content from a website using website's url. Then the app parses the HTML content i.e extracting useful attributes like name, condition, image urls and upload time of a fruit image.
 
 #### Website
+https://frutsh.pythonanywhere.com/
 <img src="https://raw.githubusercontent.com/Nehanshu24/fruit_condition_classifier/main/repo_pics/webapp.png" width="592" height="322">
 
