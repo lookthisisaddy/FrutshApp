@@ -11,7 +11,8 @@ App downloads the HTML content from a website using website's url. Then the app 
 <img src="https://raw.githubusercontent.com/Nehanshu24/fruit_condition_classifier/main/repo_pics/webapp.png" width="592" height="322">
 Link : https://frutsh.pythonanywhere.com/
 
-#### Fruit Condition Classifier 
+### Fruit Condition Classifier 
 ***This app is a part of a Fruit Condition Classifier project***
-Github of the project - https://github.com/Nehanshu24/fruit_condition_classifier
+
+Github - https://github.com/Nehanshu24/fruit_condition_classifier
 
