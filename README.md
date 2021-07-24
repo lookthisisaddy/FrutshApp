@@ -1,7 +1,7 @@
 # FrutshApp
 An android app to check the status about the freshness of a fruit.
 
-### Screenshot
+### GIF
 <img src="https://github.com/lookthisisaddy/FrutshApp/blob/master/demo.gif" width="200" height="422">
 
 ### Description
