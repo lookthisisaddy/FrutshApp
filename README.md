@@ -13,7 +13,7 @@ Link : https://frutsh.pythonanywhere.com/
 
 ### Fruit Condition Classifier 
 ***This app is a part of a Fruit Condition Classifier project. 
-Check the the Github repository given below to know more about this project***
+Check the the Github repository given below to know more about this project.***
 
 Github - https://github.com/Nehanshu24/fruit_condition_classifier
 
