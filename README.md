@@ -1,4 +1,4 @@
-# FrutshApp
+# Frutsh App
 An android app to check the status about the freshness of a fruit.
 
 ### GIF
