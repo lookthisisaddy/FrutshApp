@@ -13,8 +13,6 @@
         android:roundIcon="@mipmap/start_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Frutsh">
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".SignUpActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
