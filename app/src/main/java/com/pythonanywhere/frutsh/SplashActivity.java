@@ -41,7 +41,6 @@ public class SplashActivity extends AppCompatActivity {
 
         logoImageView.setAnimation(logo_anim);
 
-
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             if(mAuth.getCurrentUser() != null){
